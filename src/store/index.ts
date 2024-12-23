@@ -1,4 +1,4 @@
-import { create } from "zustand";  // Use named import
+import { create } from "zustand";
 
 interface GameState {
   score: number;
