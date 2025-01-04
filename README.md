@@ -85,4 +85,25 @@ Fork this repo, make some changes, and send a pull request. We'd love to see wha
 <br />
 
 
+## 👥 Collaborators
+
+<a href="https://github.com/AsilMehaboob/SpaceGame/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AsilMehaboob/SpaceGame" />
+</a>
+
+<br />
+
+
+## 📧 Reach Out
+
+Got questions? Feedback? Or just want to talk about how cool space games are? Here’s how you can reach us:
+
+- **Asil**: [asilmehaboob@gmail.com](mailto:asilmehaboob@gmail.com)
+- **Abhay**: [abhaybalakrishnan977@gmail.com](mailto:abhaybalakrishnan977@gmail.com)
+
+Feel free to drop us an email! We’d love to hear from you. 😄
+
+<br />
+
+
 **Happy gaming! 🚀**
