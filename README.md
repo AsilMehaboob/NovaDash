@@ -57,7 +57,7 @@ Ensure you have the following installed:
     npm run dev
     ```
 
-5. Open your web browser and navigate to `http://localhost:3000` to access the app.
+5. Open your web browser and navigate to `http://localhost:3000` to access the game.
 
 <br />
 
