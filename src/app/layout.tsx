@@ -11,6 +11,9 @@ const Pixeboy = localFont({
 export const metadata: Metadata = {
   title: "Nova Dash",
   description: "Nova Dash",
+  icons: {
+    icon: "/favicon.gif",
+  },
 };
 
 export default function RootLayout({
