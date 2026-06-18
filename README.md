@@ -85,13 +85,6 @@ Fork this repo, make some changes, and send a pull request. We'd love to see wha
 <br />
 
 
-## 👥 Collaborators
-
-<a href="https://github.com/AsilMehaboob/SpaceGame/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AsilMehaboob/SpaceGame" />
-</a>
-
-<br />
 
 
 ## 📧 Reach Out
