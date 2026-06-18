@@ -13,14 +13,14 @@ export async function GET() {
 
     // Sort the results and take the top 10
     const sortedScores = topScores
-      .map(s => ({
+      .map((s: any) => ({
         name: s.playerName,
         score: s._max.score || 0
       }))
       .sort((a, b) => b.score - a.score)
       .slice(0, 10);
 
-    const formattedScores = sortedScores.map((s, index) => ({
+    const formattedScores = sortedScores.map((s: { name: string, score: number }, index: number) => ({
       rank: index + 1,
       name: s.name,
       score: s.score,
