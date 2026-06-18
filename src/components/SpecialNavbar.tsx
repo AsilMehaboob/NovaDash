@@ -3,39 +3,22 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Image from "next/image";
 import { Menu, Transition } from "@headlessui/react";
-import { useRouter } from "next/navigation"; // For programmatic navigation
-import { refreshTheAccessToken } from "@/utils/authUtils";
+
 import EXCEL_LOGO from "@/assets/images/excel.webp";
 
 export default function NavbarProfileLogo() {
-  const [profilePicture, setProfilePicture] = useState<string | null>(null);
-  const router = useRouter();
+  const [playerName, setPlayerName] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchProfilePicture = async () => {
-      try {
-        const accessToken = localStorage.getItem("accessToken") || (await refreshTheAccessToken());
-        if (accessToken) {
-          const payload = JSON.parse(atob(accessToken.split(".")[1])); // Decode JWT payload
-          setProfilePicture(payload.picture); // Assuming 'picture' contains the URL
-        }
-      } catch (error) {
-        console.error("Error fetching profile picture:", error);
-      }
-    };
-
-    fetchProfilePicture();
+    setPlayerName(localStorage.getItem("playerName"));
   }, []);
 
-  const handleLogout = () => {
+  const handleChangeName = () => {
     try {
-      // Clear access token from local storage
-      localStorage.removeItem("accessToken");
-
-      // Redirect to the base URL
-      window.location.href = "https://playtest.excelmec.org";
+      localStorage.removeItem("playerName");
+      window.location.href = "/";
     } catch (error) {
-      console.error("Error during logout:", error);
+      console.error("Error during change name:", error);
     }
   };
 
@@ -49,17 +32,9 @@ export default function NavbarProfileLogo() {
         <Menu as="div" className="relative">
           <Menu.Button className="flex rounded-full text-sm border-2 border-white/[0.1]">
             <span className="sr-only">Open user menu</span>
-            {profilePicture ? (
-              <img
-                alt="User profile"
-                src={profilePicture}
-                className="size-9 rounded-full"
-              />
-            ) : (
-              <div className="size-9 rounded-full bg-gray-300 flex items-center justify-center">
-                <span className="text-sm text-white">?</span> {/* Placeholder */}
-              </div>
-            )}
+            <div className="h-9 px-3 rounded-full bg-gray-800 flex items-center justify-center">
+              <span className="text-sm text-white font-pixeboy text-xl tracking-widest pt-1">{playerName || "?"}</span>
+            </div>
           </Menu.Button>
           <Transition
             as={Fragment}
@@ -74,10 +49,10 @@ export default function NavbarProfileLogo() {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    className="h-[40px] flex items-center px-8 text-md text-white"
-                    onClick={handleLogout}
+                    className="h-[40px] flex items-center px-4 whitespace-nowrap text-md text-white"
+                    onClick={handleChangeName}
                   >
-                    Logout
+                    Change Name
                   </button>
                 )}
               </Menu.Item>

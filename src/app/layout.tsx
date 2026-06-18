@@ -9,8 +9,8 @@ const Pixeboy = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Excel Play 2024",
-  description: "Online gaming platform from Excel 2024",
+  title: "Nova Dash",
+  description: "Nova Dash",
 };
 
 export default function RootLayout({
@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${Pixeboy.variable} antialiased`}>{children}</body>
+      <body className={`${Pixeboy.variable} antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }

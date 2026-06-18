@@ -8,8 +8,7 @@ import ShipSelector from "./ShipSelector";
 import { ShipDetails } from "@/constants";
 import ParticlesComponent from "./ParticlesBackground";
 import Controls_Guide from "@/assets/images/controls_guide.webp";
-import { checkRefreshFromUrl, refreshTheAccessToken } from "../utils/authUtils";
-import { BACKEND_BASE } from "@/utils";
+
 
 const Game = dynamic(() => import("./Game"), { ssr: false });
 const Loading = dynamic(() => import("./Loading"), { ssr: false });
@@ -19,49 +18,19 @@ const StartPage = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [highScore, setHighScore] = useState<number | string | null>(null);
   const [rank, setRank] = useState<number | string | null>(null);
 
-  const handleLogout = useCallback(() => {
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("accessToken");
-    window.location.href = "/";
-  }, []);
+  const [playerName, setPlayerName] = useState<string | null>(null);
+  const [tempName, setTempName] = useState("");
 
   useEffect(() => {
-    const interval = setInterval(async () => {
-      try {
-        await refreshTheAccessToken();
-      } catch (error) {
-        console.error("Periodic token refresh failed:", error);
-      }
-    }, 15000); 
-
-    return () => clearInterval(interval); 
-  }, []);
-
-  useEffect(() => {
-    const init = async () => {
-      setLoading(true);
-
-      // Extract refresh token from URL
-      checkRefreshFromUrl();
-
-      // Attempt to refresh access token
-      const accessToken = await refreshTheAccessToken();
-      if (accessToken) {
-        setIsLoggedIn(true);
-      } else {
-        console.log("No access token found. User not logged in.");
-        setIsLoggedIn(false);
-      }
-
-      setLoading(false);
-    };
-
-    init();
+    const savedName = localStorage.getItem("playerName");
+    if (savedName) {
+      setPlayerName(savedName);
+    }
+    setLoading(false);
   }, []);
   // Use refs to store audio objects to avoid unnecessary re-renders
   const clickSoundRef = useRef<HTMLAudioElement | null>(null);
@@ -85,22 +54,10 @@ const StartPage = () => {
 
   useEffect(() => {
     const fetchScoreAndRank = async () => {
-      const token = await refreshTheAccessToken();
-      if (!token) {
-        console.error("Failed to refresh token.");
-        return;
-      }
+      if (!playerName) return;
   
       try {
-        const response = await fetch(
-          `${BACKEND_BASE}/doodle/score`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`/api/score?playerName=${encodeURIComponent(playerName)}`);
   
         if (!response.ok) {
           throw new Error("Failed to fetch score and rank.");
@@ -119,7 +76,7 @@ const StartPage = () => {
     };
   
     fetchScoreAndRank();
-  }, []);
+  }, [playerName]);
 
 
   // Reusable function to play audio
@@ -211,10 +168,43 @@ const StartPage = () => {
               </div>
             </div>
 
-            <div className="borderGradient scale-95 mt-[-16px]">
-              <button onClick={startGame} className="specialBg">
-                <p className="pt-[3.5px]">Start Game</p>
-              </button>
+            <div className="flex flex-col items-center gap-[10px] mt-[-16px]">
+              {playerName ? (
+                <>
+                  <p className="text-white text-[22px] font-pixeboy mt-[-5px]">
+                    PLAYING AS: <span className="text-skyblue_btn">{playerName.toUpperCase()}</span>
+                  </p>
+                  <div className="borderGradient scale-95 mt-[-5px]">
+                    <button onClick={startGame} className="specialBg">
+                      <p className="pt-[3.5px]">Start Game</p>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col gap-[10px] items-center w-full">
+                  <input 
+                    type="text" 
+                    placeholder="Enter your name" 
+                    value={tempName}
+                    onChange={(e) => setTempName(e.target.value)}
+                    className="bg-black text-white border-2 border-[#3094CF] p-2 font-pixeboy text-[24px] text-center w-[250px] rounded-md outline-none"
+                    maxLength={15}
+                  />
+                  <div className="borderGradient scale-95">
+                    <button 
+                      onClick={() => {
+                        if(tempName.trim()) {
+                          localStorage.setItem("playerName", tempName.trim());
+                          setPlayerName(tempName.trim());
+                        }
+                      }} 
+                      className="specialBg"
+                    >
+                      <p className="pt-[3.5px]">Save Name</p>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

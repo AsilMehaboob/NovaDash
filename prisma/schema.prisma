@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Score {
+  id         String   @id @default(cuid())
+  playerName String   @map("player_name")
+  score      Int
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("scores")
+}

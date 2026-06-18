@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { checkRefreshFromUrl, refreshTheAccessToken } from "../utils/authUtils";
-import { BACKEND_BASE } from "@/utils";
+
 
 interface GameOverModalProps {
   isOpen: boolean;
@@ -25,22 +24,10 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
 
     useEffect(() => {
       const fetchScoreAndRank = async () => {
-        const token = await refreshTheAccessToken();
-        if (!token) {
-          console.error("Failed to refresh token.");
-          return;
-        }
-    
         try {
-          const response = await fetch(
-            `${BACKEND_BASE}/doodle/score`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          const playerName = localStorage.getItem("playerName");
+          if (!playerName) return;
+          const response = await fetch(`/api/score?playerName=${encodeURIComponent(playerName)}`);
     
           if (!response.ok) {
             throw new Error("Failed to fetch score and rank.");

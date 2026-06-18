@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { refreshTheAccessToken } from "@/utils/authUtils";
-import { BACKEND_BASE } from "@/utils";
 
 interface Player {
   rank: number;
@@ -15,6 +13,10 @@ interface Player {
 export default function Leaderboard() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentUserName, setCurrentUserName] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrentUserName(localStorage.getItem("playerName"));
+  }, []);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -37,23 +39,11 @@ export default function Leaderboard() {
   };
 
   useEffect(() => {
-    const fetchPlayersAndUser = async () => {
+    const fetchPlayers = async () => {
       try {
-        // Refresh and get the access token
-        const accessToken =
-          localStorage.getItem("accessToken") || (await refreshTheAccessToken());
-        if (!accessToken) throw new Error("Failed to retrieve access token");
-
-        // Decode the JWT payload to get the user details
-        const payload = JSON.parse(atob(accessToken.split(".")[1]));
-        setCurrentUserName(payload.name); // Assuming the token contains 'name'
-
-        // Fetch leaderboard data
-        const leaderboardResponse = await fetch(
-          `${BACKEND_BASE}/doodle/ranklist`
-        );
+        const leaderboardResponse = await fetch("/api/leaderboard");
         const leaderboardData = await leaderboardResponse.json();
-        setPlayers(leaderboardData.ranklist || []);
+        setPlayers(leaderboardData || []);
       } catch (error) {
         setError("Failed to load leaderboard. Please try again later.");
       } finally {
@@ -61,7 +51,7 @@ export default function Leaderboard() {
       }
     };
 
-    fetchPlayersAndUser();
+    fetchPlayers();
   }, []);
 
   if (isLoading)

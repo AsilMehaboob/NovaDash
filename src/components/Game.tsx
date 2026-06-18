@@ -7,9 +7,8 @@ import Image from "next/image";
 import SoundOn from "@/assets/icons/sound_on.svg";
 import SoundOff from "@/assets/icons/sound_off.svg";
 import { GameOverModal } from "@/components/GameOverModal";
-import { refreshTheAccessToken } from "@/utils/authUtils";
 import axios from "axios";
-import { processNumber, getPath, BACKEND_BASE } from "@/utils";
+import { processNumber, getPath } from "@/utils";
 
 interface GameProps {
   selectedShip: { src: string; alt: string };
@@ -34,26 +33,17 @@ const Game: React.FC<GameProps> = ({ selectedShip }) => {
   
   const updateScore = async (score: number) => {
     try {
-      // Refresh the token
-      const accessToken = await refreshTheAccessToken();
-      if (!accessToken) {
-        return;
-      }
+      const playerName = localStorage.getItem("playerName");
+      if (!playerName) return;
+
+      const response = await fetch("/api/score", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ score, playerName })
+      });
   
-      // Post the score
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const response = await axios.post(
-        `${BACKEND_BASE}/doodle/score/${getPath(score, processNumber(score))}`,
-        { score },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-  
-      if (response.status !== 200) {
-        console.error("Failed to update score:", response);
+      if (!response.ok) {
+        console.error("Failed to update score:", await response.text());
       }
     } catch (error) {
       console.error("Error updating score:", error);
