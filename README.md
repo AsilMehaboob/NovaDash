@@ -1,4 +1,4 @@
-# Nova Dash 🚀
+# Nova Dash
 
 ## Overview
 
@@ -14,40 +14,39 @@ The game attracted **600+ players** during the 2024–25 event season and featur
 
 ---
 
-## ✨ Features
+## Features
 
-- 🚀 Fast-paced vertical shooter gameplay
-- 🏆 Competitive global leaderboard
-- 📱 Responsive gameplay across desktop and mobile devices
-- 💥 Multiple enemy types, power-ups, and progressive difficulty
-- 🎮 Smooth 60 FPS gameplay
-- 🌌 Space-themed visuals and animations
+- Fast-paced vertical shooter gameplay
+- Competitive leaderboard
+- Responsive across desktop and mobile devices
+- Multiple enemy types, power-ups, and progressive difficulty
+- Smooth 60 FPS gameplay
+- Space-themed visuals and animations
 
 ---
 
-## ⚙️ Technical Highlights
+## Technical Highlights
 
-- Engineered a **web-based 2D vertical space shooter** capable of supporting **600+ players** during the Excel 2024–25 event season.
-- Architected the game's **rendering pipeline** to deliver smooth and responsive gameplay at a stable **60 FPS**.
-- Implemented **deterministic rigid-body physics** and an efficient **Axis-Aligned Bounding Box (AABB)** collision detection system for accurate gameplay interactions.
-- Optimized collision checks through efficient spatial querying techniques to minimize computational overhead.
-- Designed a **Dynamic Difficulty Scaling** system that adjusts gameplay intensity based on player progression and performance.
+- Engineered a **web-based 2D vertical space shooter** that attracted **600+ players** during the Excel 2024–25 event season.
+- Architected the game's **rendering pipeline** to deliver smooth gameplay at a stable **60 FPS**.
+- Implemented **deterministic rigid-body physics** and **Axis-Aligned Bounding Box (AABB)** collision detection for accurate gameplay interactions.
+- Optimized collision detection to minimize computational overhead while maintaining consistent performance.
+- Designed a **Dynamic Difficulty Scaling** system that dynamically adjusts gameplay based on player progression.
 - Developed a competitive **leaderboard system** for tracking and ranking player scores.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend:** p5.js
 - **Language:** JavaScript
 - **Rendering:** HTML5 Canvas
-- **Game Loop:** Custom render/update pipeline
 - **Physics:** Deterministic rigid-body simulation
 - **Collision Detection:** Axis-Aligned Bounding Box (AABB)
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -56,31 +55,31 @@ The game attracted **600+ players** during the 2024–25 event season and featur
 
 ### Installation
 
-1. Clone the repository
+1. Clone the repository.
 
 ```bash
 git clone https://github.com/AsilMehaboob/SpaceGame.git
 ```
 
-2. Navigate to the project
+2. Navigate to the project directory.
 
 ```bash
 cd SpaceGame
 ```
 
-3. Install dependencies
+3. Install dependencies.
 
 ```bash
 npm install
 ```
 
-4. Start the development server
+4. Start the development server.
 
 ```bash
 npm run dev
 ```
 
-5. Open your browser and visit
+5. Open your browser and visit:
 
 ```
 http://localhost:3000
@@ -88,28 +87,27 @@ http://localhost:3000
 
 ---
 
-## 🎮 How to Play
+## How to Play
 
-- ⬅️➡️ Use the **Arrow Keys** to move your spaceship.
-- 🚀 Press **Spacebar** to fire.
-- 💥 Destroy enemy ships.
-- ⚡ Collect power-ups.
-- 🛡️ Avoid enemy attacks and survive as long as possible.
-- 🏆 Climb the leaderboard by achieving the highest score.
+- Use the **Arrow Keys** to move your spaceship.
+- Press **Spacebar** to shoot.
+- Destroy enemy ships and collect power-ups.
+- Avoid enemy attacks and survive as long as possible.
+- Climb the leaderboard by achieving the highest score.
 
 ---
 
-## 🌟 About Excel 2024
+## About Excel 2024
 
 **Excel** is the annual techno-managerial festival of **Govt. Model Engineering College, Kochi**. Since 2001, it has hosted thousands of participants through technical competitions, workshops, and gaming events.
 
-Nova Dash was developed as one of the featured games for the festival's gaming platform and was played by over **600 participants** throughout the event season.
+Nova Dash was developed as one of the featured games for the festival's gaming platform and was played by **600+ participants** throughout the event season.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome!
+Contributions are welcome.
 
 1. Fork the repository.
 2. Create a feature branch.
@@ -118,7 +116,7 @@ Contributions are welcome!
 
 ---
 
-## 📬 Contact
+## Contact
 
 **Asil Mehaboob**  
 📧 asilmehaboob@gmail.com
@@ -128,6 +126,4 @@ Contributions are welcome!
 
 ---
 
-⭐ If you enjoyed the project, consider giving it a star!
-
-**Happy Gaming! 🚀**
+If you enjoyed this project, consider giving it a ⭐ on GitHub.
